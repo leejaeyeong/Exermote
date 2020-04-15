@@ -4,7 +4,7 @@ from pandas import read_csv
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 from keras.utils import np_utils
 from keras.models import Sequential
-from keras.layers import Dense, Activation, Dropout, LSTM, Conv1D
+from keras.layers import Dense, Activation, Dropout, LSTM, Conv1D, Flatten
 from keras.callbacks import TensorBoard, ModelCheckpoint
 from numpy import array, split
 
@@ -18,7 +18,8 @@ from tensorflow.python.saved_model.signature_def_utils_impl import predict_signa
 import coremltools
 
 # training parameters
-epochs = 50
+epochs = 10
+
 batch_size = 100
 validation_split = 0.2
 
@@ -50,7 +51,8 @@ def train_model(train_file='data_classes_4_squats_adjusted.csv', job_dir='leeeee
     dataset = dataframe.values
 
     X = dataset[:, [
-        2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, # Device: xGravity, yGravity, zGravity, xAcceleration, yAcceleration, zAcceleration, pitch, roll, yaw, xRotationRate, yRotationRate, zRotationRate
+        #2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, # Device: xGravity, yGravity, zGravity, xAcceleration, yAcceleration, zAcceleration, pitch, roll, yaw, xRotationRate, yRotationRate, zRotationRate
+        2, 3, 4, 5, 6, 7,  # xAcceleration, yAcceleration, zAcceleration, xRotationRate, yRotationRate, zRotationRate
         # 14,15,16,17,                          # Right Hand: rssi, xAcceleration, yAcceleration, zAcceleration
         # 18,19,20,21,                          # Left Hand: rssi, xAcceleration, yAcceleration, zAcceleration
         # 22,23,24,25,                          # Right Foot: rssi, xAcceleration, yAcceleration, zAcceleration
@@ -95,6 +97,7 @@ def train_model(train_file='data_classes_4_squats_adjusted.csv', job_dir='leeeee
         LSTM(nodes_per_layer, return_sequences=True),
         LSTM(nodes_per_layer, return_sequences=False),
         Dropout(dropout),
+        #Flatten(),
         Dense(num_classes),
         Activation('softmax', name='scores'),
     ])
@@ -212,5 +215,6 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
     arguments = args.__dict__
-
+    print('trainfile & job dir arguments :',arguments)
+    
     train_model(**arguments)
