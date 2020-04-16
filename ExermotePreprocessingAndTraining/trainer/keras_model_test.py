@@ -21,7 +21,7 @@ xhat = x_test[xhat_idx]
 #print(xhat.tolist())
 timesteps = 40
 timesteps_in_future = 20
-train_file = '../MoviLabData/ExermoteFormatExerciseData.csv'
+train_file = '../MoviLabData/xin_final.csv'
 
 #file load
 file_stream = file_io.FileIO(train_file, mode='r')
@@ -69,5 +69,5 @@ pro = model.predict_proba(X)
 print(pro[0])
 print(pro[1])
 for i in range(len(yhat)):
-   # print('result -----> break [{0:.2f}], squat [{0:.2f}], pushup [{0:.2f}], sqaut [{0:.2f}], raise [{0:.2f}]'.format(pro[i][0],pro[i][1],pro[i][2],pro[i][3],pro[i][4]) + '/ Exercise Predict : ' + type_classes[yhat[i]])
-    print('result -----> break [{0:.2f}],'.format(pro[i][0]) + 'squat [{0:.2f}],'.format(pro[i][1]) + 'pushup [{0:.2f}],'.format(pro[i][2]) + 'sqaut [{0:.2f}],'.format(pro[i][3]) + 'raise [{0:.2f}]'.format(pro[i][4]) + '/ Exercise Predict : ' + type_classes[yhat[i]])
+    print('{} Exercise Predict : '.format(i) + type_classes[yhat[i]])
+    #print('{} : '.format(i+2) + 'result -----> break [{0:.2f}],'.format(pro[i][0]) + 'squat [{0:.2f}],'.format(pro[i][1]) + 'pushup [{0:.2f}],'.format(pro[i][2]) + 'sqaut [{0:.2f}],'.format(pro[i][3]) + 'raise [{0:.2f}]'.format(pro[i][4]) + '/ Exercise Predict : ' + type_classes[yhat[i]])

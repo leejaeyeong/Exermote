@@ -18,7 +18,7 @@ from tensorflow.python.saved_model.signature_def_utils_impl import predict_signa
 import coremltools
 
 # training parameters
-epochs = 10
+epochs = 30 
 
 batch_size = 100
 validation_split = 0.2
