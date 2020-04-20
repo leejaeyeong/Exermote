@@ -22,7 +22,7 @@ xhat = x_test[xhat_idx]
 timesteps = 40
 timesteps_in_future = 20
 train_file = '../MoviLabData/xin_final.csv'
-
+train_file = '../MoviLabData/ExermoteFormatExerciseData.csv'
 #file load
 file_stream = file_io.FileIO(train_file, mode='r')
 dataframe = read_csv(file_stream, header=0)
